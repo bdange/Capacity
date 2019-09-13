@@ -1,0 +1,24 @@
+body {
+  padding-top: 54px;
+  font-family: "Nunito", sans-serif;
+}
+
+header {
+  background-image: url("https://trello-backgrounds.s3.amazonaws.com/SharedBackground/2560x1709/944746c3e81dfdfe150bbbc8dc22bbae/photo-1484320775925-2609d111d8b3");
+  background-size: cover;
+  min-height: 60vh;
+}
+
+.center-text {
+  margin-top: 2em;
+  text-align: left;
+}
+
+h4,
+h6.center-text {
+  margin-right: 10em;
+}
+
+.aircraft-pic {
+  width: 250px;
+}
