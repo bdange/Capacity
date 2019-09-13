@@ -1,0 +1,11 @@
+{
+  "name": "capacity",
+  "version": "1.0.0",
+  "description": "An empty-leg reservation platform",
+  "main": "index.js",
+  "scripts": {
+    "test": "export NODE_ENV=test&& jasmine"
+  },
+  "author": "",
+  "license": "ISC"
+}
