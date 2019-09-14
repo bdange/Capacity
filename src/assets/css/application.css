@@ -22,3 +22,16 @@ h6.center-text {
 .aircraft-pic {
   width: 250px;
 }
+
+.col-pic {
+  padding: 0;
+}
+
+.col {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.col-price {
+  color: red;
+}
