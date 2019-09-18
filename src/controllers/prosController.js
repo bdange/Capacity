@@ -1,13 +1,14 @@
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
 const nodemailer = require("nodemailer");
+const router = express.Router();
 
 module.exports = {
   index(req, res, next) {
     res.render("pros/index", { title: "A flight to offer?" });
   },
   nodemailer(req, res, next) {
-    app.post("/pros/contact", (req, res) => {
+    router.post("/pros/contact", (req, res) => {
       const smtpTrans = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
