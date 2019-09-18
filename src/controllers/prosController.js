@@ -1,7 +1,6 @@
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
 const nodemailer = require("nodemailer");
-const router = express.Router();
 
 module.exports = {
   index(req, res, next) {
@@ -38,5 +37,6 @@ module.exports = {
         }
       });
     });
+    res.render("pros/index");
   }
 };
