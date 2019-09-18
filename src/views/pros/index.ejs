@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <section class="container">
+      <h2 style="padding-top: 25px">A flight to offer?</h2>
+      <h5 style="padding-top: 12px">
+        Dear Professionals, welcome to Capacity. The new platform connecting the
+        main jet operators from Europe and America, offering their empty-leg
+        charter flights.
+      </h5>
+      <p class="question">
+        - Do you have empty-legs to offer?
+      </p>
+      <p>
+        Capacity is the solution. We are the first and only platform allowing
+        you to promote your last-minute empty-leg flights.<br />
+        We know the feeling of seeing a promising empty flight not being sold
+        despite numerous attempt.
+      </p>
+      <p class="question">
+        - How does it work?
+      </p>
+      <p>
+        You just need tp register, submit aircraft pictures for your upcoming
+        flight with routing(s) and price(s). We request you to remove any
+        distinct sign such as brand name, logo or tail number. This will be
+        reviewed and once you get approved, we will add you offer to our
+        listing. <br />
+        For your first add, we'll also request a copy of your AOC and insurance
+        certificate. Approval remains to our sole discretion.<br />
+        Your name won't appear until a client request an inquiry. Once you
+        confirm your availability we'll let you interact with your future client
+        and handle his request. This might be new clients for your in the
+        future.
+      </p>
+
+      <p class="question">
+        - How much does it cost to list my flights?
+      </p>
+      <p>
+        Nothing, advertising your offer is totally free of charge.<br />
+        Once you get a booking through us, we will charge you a commission.
+      </p>
+
+      <form action="/contact" id="contact-form" method="post" role="form">
+        <fieldset>
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" />
+
+          <label for="email">Email</label>
+          <input id="email" name="email" type="text" placeholder="Your email" />
+
+          <label for="message">Message</label>
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Enter your message here"
+            rows="3"
+          ></textarea>
+
+          <button type="submit">Submit</button>
+        </fieldset>
+      </form>
+      <% include ../static/partials/baseScripts.ejs %>
+    </section>
+  </body>
+</html>

@@ -35,3 +35,10 @@ h6.center-text {
 .col-price {
   color: red;
 }
+
+.question {
+  margin-left: 20px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
