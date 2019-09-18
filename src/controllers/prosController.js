@@ -15,13 +15,16 @@ module.exports = {
         auth: {
           user: GMAIL_USER,
           pass: GMAIL_PASS
+        },
+        tls: {
+          rejectUnauthorized: false
         }
       });
 
       const mailOpts = {
         from: "Your sender info here", // This is ignored by Gmail
         to: GMAIL_USER,
-        subject: "New message from contact form at tylerkrys.ca",
+        subject: "New message from contact form at Capacity",
         text: `${req.body.name} (${req.body.email}) says: ${req.body.message}`
       };
 
