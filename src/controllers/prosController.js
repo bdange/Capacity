@@ -7,7 +7,7 @@ module.exports = {
     res.render("pros/index", { title: "A flight to offer?" });
   },
   nodemailer(req, res, next) {
-    router.post("/pros/contact", (req, res) => {
+    res.post("/pros/contact", (req, res) => {
       const smtpTrans = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
