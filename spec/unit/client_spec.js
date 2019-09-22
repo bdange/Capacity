@@ -1,4 +1,5 @@
-const sequelize = require("../../src/models/index").sequelize;
+const sequelize = require("../../src/db/models/index").sequelize;
+const Client = require("../../src/db/models").Client;
 
 describe("Client", () => {
   beforeEach(done => {
