@@ -17,7 +17,7 @@ module.exports = {
     clientQueries.createClient(newClient, (err, client) => {
       if (err) {
         req.flash("error", err);
-        res.redirect("client/sign_up");
+        res.redirect("/client/sign_up");
       } else {
         passport.authenticate("local")(req, res, () => {
           req.flash("notice", "You've successfully signed in!");
@@ -25,5 +25,24 @@ module.exports = {
         });
       }
     });
+  },
+  signInForm(req, res, next) {
+    res.render("client/sign_in");
+  },
+  signIn(req, res, next) {
+    passport.authenticate("local")(req, res, function() {
+      if (!req.client) {
+        req.flash("notice", "Sign in failed. Please try again.");
+        res.redirect("client/sign_in");
+      } else {
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      }
+    });
+  },
+  signOut(req, res, next) {
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
   }
 };

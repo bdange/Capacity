@@ -4,7 +4,7 @@ const bcrypt = require("bcryptjs");
 module.exports = {
   createClient(newClient, callback) {
     const salt = bcrypt.genSaltSync();
-    const hashedPassword = bcrypt.hashSync(newClient.password.salt);
+    const hashedPassword = bcrypt.hashSync(newClient.password, salt);
 
     return Client.create({
       email: newClient.email,
