@@ -24,8 +24,13 @@ module.exports = {
     );
     app.use(flash());
     passportConfig.init(app);
+    passportConfig.initPro(app);
     app.use((req, res, next) => {
       res.locals.currentClient = req.client;
+      next();
+    });
+    app.use((req, res, next) => {
+      res.locals.currentPro = req.pro;
       next();
     });
   }

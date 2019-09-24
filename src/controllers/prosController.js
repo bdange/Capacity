@@ -1,42 +1,48 @@
-const GMAIL_USER = process.env.GMAIL_USER;
-const GMAIL_PASS = process.env.GMAIL_PASS;
-const nodemailer = require("nodemailer");
+const proQueries = require("../db/queries.pros.js");
+const passport = require("passport");
 
 module.exports = {
   index(req, res, next) {
     res.render("pros/index", { title: "A flight to offer?" });
   },
-  nodemailer(req, res, next) {
-    res.post("/pros/contact", (req, res) => {
-      const smtpTrans = nodemailer.createTransport({
-        host: "smtp.gmail.com",
-        port: 465,
-        secure: true,
-        auth: {
-          user: GMAIL_USER,
-          pass: GMAIL_PASS
-        },
-        tls: {
-          rejectUnauthorized: false
-        }
-      });
-
-      const mailOpts = {
-        from: "Your sender info here", // This is ignored by Gmail
-        to: GMAIL_USER,
-        subject: "New message from contact form at Capacity",
-        text: `${req.body.name} (${req.body.email}) says: ${req.body.message}`
-      };
-
-      // Attempt to send the email
-      smtpTrans.sendMail(mailOpts, (error, response) => {
-        if (error) {
-          res.render("contact-failure"); // Show a page indicating failure
-        } else {
-          res.render("contact-success"); // Show a page indicating success
-        }
-      });
+  signUp(req, res, next) {
+    res.render("pros/sign_up");
+  },
+  create(req, res, next) {
+    let newPro = {
+      email: req.body.email,
+      password: req.body.password,
+      passwordConfirmation: req.body.passwordConfirmation
+    };
+    proQueries.createPro(newPro, (err, pro) => {
+      if (err) {
+        req.flash("error", err);
+        res.redirect("/pros/sign_up");
+      } else {
+        passport.authenticate("local")(req, res, () => {
+          req.flash("notice", "You've successfully signed in!");
+          res.redirect("/");
+        });
+      }
     });
-    res.render("pros/index");
+  },
+  signInForm(req, res, next) {
+    res.render("pros/sign_in");
+  },
+  signIn(req, res, next) {
+    passport.authenticate("local")(req, res, function() {
+      if (!req.pro) {
+        req.flash("notice", "Sign in failed. Please try again.");
+        res.redirect("/pros/sign_in");
+      } else {
+        req.flash("notice", "You've successfully signed in!");
+        res.redirect("/");
+      }
+    });
+  },
+  signOut(req, res, next) {
+    req.logout();
+    req.flash("notice", "You've successfully signed out!");
+    res.redirect("/");
   }
 };

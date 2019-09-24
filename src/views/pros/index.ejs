@@ -46,36 +46,9 @@
         Once you get a booking through us, we will charge you a commission.
       </p>
 
-      <form action="/pros/contact" id="contact-form" method="post" role="form">
-        <fieldset>
-          <label for="name">Name</label>
-          <input 
-            id="name" 
-            name="name" 
-            type="text" 
-            placeholder="Your name" 
-            required>
-      
-          <label for="email">Email</label>
-          <input 
-            id="email" 
-            name="email" 
-            type="text" 
-            placeholder="Your email" 
-            required>
-      
-          <label for="message">Message</label>
-          <textarea 
-            id="message" 
-            name="message" 
-            placeholder="Enter your message here" 
-            rows="3" 
-            required></textarea>
-      
-          <button type="submit">Submit</button>
-        </fieldset>
-      </form>
-      </form>
+      <a href="/pros/sign_up" class="btn btn-primary btn-lg">Sign up</a>
+      <a href="/pros/sign_in" class="btn btn-primary btn-lg">Sign in</a>
+
       <% include ../static/partials/baseScripts.ejs %>
     </section>
   </body>
