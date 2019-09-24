@@ -4,6 +4,7 @@ const viewsFolder = path.join(__dirname, "..", "views");
 const bodyParser = require("body-parser");
 const expressValidator = require("express-validator");
 const passportConfig = require("./passport-config");
+const passportConfigPros = require("./passport-config-pros");
 const session = require("express-session");
 const flash = require("express-flash");
 
@@ -24,7 +25,7 @@ module.exports = {
     );
     app.use(flash());
     passportConfig.init(app);
-    passportConfig.initPro(app);
+    passportConfigPros.init(app);
     app.use((req, res, next) => {
       res.locals.currentClient = req.client;
       next();

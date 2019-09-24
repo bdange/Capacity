@@ -2,9 +2,9 @@ const bcrypt = require("bcryptjs");
 
 module.exports = {
   ensureAuthenticated(req, res, next) {
-    if (!req.client) {
+    if (!req.pro) {
       req.flash("notice", "You must be signed in to do that.");
-      return res.redirect("/client/sign_in");
+      return res.redirect("/pros/sign_in");
     } else {
       next();
     }

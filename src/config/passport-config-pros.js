@@ -1,7 +1,7 @@
 const passport = require("passport");
 const LocalStrategy = require("passport-local").Strategy;
-const Client = require("../db/models").Client;
-const authHelper = require("../auth/helpers");
+const Pro = require("../db/models").Pro;
+const authHelper = require("../auth/helpers-pros");
 
 module.exports = {
   init(app) {
@@ -14,30 +14,30 @@ module.exports = {
           usernameField: "email"
         },
         (email, password, done) => {
-          Client.findOne({
+          Pro.findOne({
             where: { email }
-          }).then(client => {
-            if (!client || !authHelper.comparePass(password, client.password)) {
+          }).then(pro => {
+            if (!pro || !authHelper.comparePass(password, pro.password)) {
               return done(null, false, {
-                message: "invalid email or password"
+                message: "Invalid email or passowrd"
               });
             }
-            return done(null, client);
+            return done(null, pro);
           });
         }
       )
     );
-    passport.serializeUser((client, callback) => {
-      callback(null, client.id);
+    passport.serializeUser((pro, callback) => {
+      callback(null, pro.id);
     });
 
     passport.deserializeUser((id, callback) => {
-      Client.findByPk(id)
-        .then(client => {
-          callback(null, client);
+      Pro.findByPk(id)
+        .then(pro => {
+          callback(null, pro);
         })
         .catch(err => {
-          callback(err, client);
+          callback(err, pro);
         });
     });
   }
