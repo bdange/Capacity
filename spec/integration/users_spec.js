@@ -1,10 +1,10 @@
 const request = require("request");
 const server = require("../../src/server");
-const base = "http://localhost:3000/client/";
-const Client = require("../../src/db/models").Client;
+const base = "http://localhost:3000/users/";
+const User = require("../../src/db/models").User;
 const sequelize = require("../../src/db/models/index").sequelize;
 
-describe("routes: client", () => {
+describe("routes : users", () => {
   beforeEach(done => {
     sequelize
       .sync({ force: true })
@@ -16,7 +16,8 @@ describe("routes: client", () => {
         done();
       });
   });
-  describe("GET /client/sign_up", () => {
+
+  describe("GET /users/sign_up", () => {
     it("should render a view with a sign up form", done => {
       request.get(`${base}sign_up`, (err, res, body) => {
         expect(err).toBeNull();
@@ -26,21 +27,22 @@ describe("routes: client", () => {
     });
   });
 
-  describe("POST /client", () => {
-    it("should create a new client with valid values and redirect", done => {
+  describe("POST /users", () => {
+    it("should create a new user with valid values and redirect", done => {
       const options = {
         url: base,
         form: {
-          email: "client@example.com",
-          password: "1234567890"
+          email: "user@example.com",
+          password: "123456789"
         }
       };
+
       request.post(options, (err, res, body) => {
-        Client.findOne({ where: { email: "client@example.com" } })
-          .then(client => {
-            expect(client).not.toBeNull();
-            expect(client.email).toBe("client@example.com");
-            expect(client.id).toBe(1);
+        User.findOne({ where: { email: "user@example.com" } })
+          .then(user => {
+            expect(user).not.toBeNull();
+            expect(user.email).toBe("user@example.com");
+            expect(user.id).toBe(1);
             done();
           })
           .catch(err => {
@@ -50,7 +52,7 @@ describe("routes: client", () => {
       });
     });
 
-    it("should not create a new user with invalid attribut and redirect", done => {
+    it("should not create a new user with invalid attributes and redirect", done => {
       request.post(
         {
           url: base,
@@ -60,9 +62,9 @@ describe("routes: client", () => {
           }
         },
         (err, res, body) => {
-          Client.findOne({ where: { email: "no" } })
-            .then(client => {
-              expect(client).toBeNull();
+          User.findOne({ where: { email: "no" } })
+            .then(user => {
+              expect(user).toBeNull();
               done();
             })
             .catch(err => {
@@ -74,7 +76,7 @@ describe("routes: client", () => {
     });
   });
 
-  describe("GET /client/sign_in", () => {
+  describe("GET /users/sign_in", () => {
     it("should render a view with a sign in form", done => {
       request.get(`${base}sign_in`, (err, res, body) => {
         expect(err).toBeNull();

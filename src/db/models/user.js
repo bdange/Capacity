@@ -1,7 +1,7 @@
 "use strict";
 module.exports = (sequelize, DataTypes) => {
-  var Pro = sequelize.define(
-    "Pro",
+  var User = sequelize.define(
+    "User",
     {
       email: {
         type: DataTypes.STRING,
@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {}
   );
-  Pro.associate = function(models) {
+  User.associate = function(models) {
     // associations can be defined here
   };
-  return Pro;
+  return User;
 };

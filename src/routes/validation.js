@@ -20,7 +20,7 @@ module.exports = {
       return next();
     }
   },
-  validatePro(req, res, next) {
+  validateUsers(req, res, next) {
     if (req.method === "POST") {
       req.checkBody("email", "must be valid").isEmail();
       req
@@ -31,6 +31,7 @@ module.exports = {
         .optional()
         .matches(req.body.password);
     }
+
     const errors = req.validationErrors();
 
     if (errors) {
