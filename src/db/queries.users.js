@@ -14,7 +14,7 @@ module.exports = {
     })
       .then(user => {
         const msg = {
-          to: email,
+          to: newUser.email,
           from: "admin@flycapacity.com",
           subject: "Signup succeeded!",
           html: "<h1>You've successfully signed-up!</h1>"
