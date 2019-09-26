@@ -1,6 +1,7 @@
 const User = require("./models").User;
 const bcrypt = require("bcryptjs");
 const sgMail = require("@sendgrid/mail");
+const dotenv = require("dotenv").config();
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
 module.exports = {
@@ -19,6 +20,8 @@ module.exports = {
           subject: "Signup succeeded!",
           html: "<h1>You've successfully signed-up!</h1>"
         };
+
+        console.log(process.env.SENDGRID_API_KEY);
         sgMail.send(msg);
         callback(null, user);
       })
