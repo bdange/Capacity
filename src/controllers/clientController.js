@@ -22,17 +22,35 @@ module.exports = {
       from: "admin@flycapacity.com",
       to: GMAIL_USER,
       subject: "New message from contact form at flycapacity.com",
-      text: `(${req.body.name} ${req.body.email} ${req.body.phone}) says: ${req.body.message}`
+      text: `${req.body.name} ${req.body.email} ${req.body.phone} says: ${req.body.message}`
     };
 
-    smtpTrans.sendMail(mailOpts, (err, response) => {
+    /*    smtpTrans.sendMail(mailOpts, (err, res) => {
       if (err) {
+        console.log(err);
         req.flash("error", err);
         res.redirect("/client");
       } else {
         res.flash("notice", "Your message has been sent!");
-        res.redirect("/client");
+        res.redirect("/");
+        console.log("Hello hello");
       }
+    }); */
+
+    smtpTrans.sendMail(mailOpts, (err, res) => {
+      if (err) {
+        throw err;
+      }
+      res.redirect("/");
     });
   }
 };
+/*
+
+req.flash("notice", "Your message has been sent!");
+res.redirect("/client");
+} catch (err) {
+ req.flash("error", err);
+ res.redirect("/client");
+}
+*/
