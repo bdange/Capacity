@@ -25,7 +25,7 @@ module.exports = {
       text: `(${req.body.name} ${req.body.email} ${req.body.phone}) says: ${req.body.message}`
     };
 
-    smtpTrans.sendMail(mailOpts, (err, res) => {
+    smtpTrans.sendMail(mailOpts, (err, response) => {
       if (err) {
         req.flash("error", err);
         res.redirect("/client");
