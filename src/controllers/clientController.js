@@ -37,20 +37,17 @@ module.exports = {
       }
     }); */
 
-    smtpTrans.sendMail(mailOpts, (err, res) => {
-      if (err) {
-        throw err;
-      }
-      res.redirect("/");
-    });
+    try {
+      smtpTrans.sendMail(mailOpts, (err, res) => {
+        if (err) {
+          throw err;
+        }
+      });
+      req.flash("notice", "Your message has been sent!");
+      res.redirect("/client");
+    } catch (err) {
+      req.flash("error", err);
+      res.redirect("/client");
+    }
   }
 };
-/*
-
-req.flash("notice", "Your message has been sent!");
-res.redirect("/client");
-} catch (err) {
- req.flash("error", err);
- res.redirect("/client");
-}
-*/
