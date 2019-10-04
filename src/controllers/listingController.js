@@ -16,6 +16,7 @@ module.exports = {
     res.render("listings/new");
   },
   create(req, res, next) {
+    // console.log(req);
     let newListing = {
       image1: req.file,
       image2: req.file,
@@ -28,7 +29,9 @@ module.exports = {
       price: req.body.price
     };
     listingQueries.addListing(newListing, (err, listing) => {
+      //  console.log(req.body.date);
       if (err) {
+        //console.log(err);
         res.redirect(500, "/listings/new");
       } else {
         res.redirect(300, `/listings/${listing.id}`);
