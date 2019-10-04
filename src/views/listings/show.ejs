@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+      <img src="<%= listing.image1 %>" />
+      <img src="<%= listing.image2 %>" />
+      <p><%= listing.date %></p>
+      <p><%= listing.aircraft %></p>
+      <p><%= listing.seats %></p>
+      <p><%= listing.origin %></p>
+      <p><%= listing.destination %></p>
+      <p><%= listing.currence %></p>
+      <p><%= listing.price %></p>
+
+      <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning"
+        >Edit</a
+      >
+
+      <form
+        style="display: initial"
+        action="/listings/<%= listing.id %>/destroy"
+        method="post"
+      >
+        <button type="submit" class="btn btn-danger">Delete</button>
+      </form>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>

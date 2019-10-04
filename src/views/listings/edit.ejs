@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+    <main class="container">
+      <h1>Edit Listing</h1>
+
+      <form
+        action="/listings/<%= listing.id %>/update"
+        enctype="multipart/form-data"
+        method="post"
+      >
+        <div class="form-group">
+          <label for="image">Aircraft Exterior</label>
+          <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            aria-describedby="imageHelp"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="image">Aircraft Interior</label>
+          <input
+            type="file"
+            class="form-control"
+            id="image"
+            name="image"
+            aria-describedby="imageHelp"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="title">Enter Date</label>
+          <input
+            value="<%= listing.date %>"
+            type="date"
+            id="start"
+            name="trip-start"
+            value="date.now()"
+            min="2018-01-01"
+            max="2021-12-31"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="aircraft">Aircraft details</label>
+          <input
+            value="<%= listing.aircraft %>"
+            type="text"
+            class="form-control"
+            name="aircraft"
+            aria-describedby="aircraftHelp"
+            placeholder="Aircraft details"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="Seats Number">Seats Number</label>
+          <input
+            value="<%= listing.seats %>"
+            type="integer"
+            class="form-control"
+            name="seats"
+            aria-describedby="seatsHelp"
+            placeholder="Enter number"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="currency">Choose currency</label>
+          <select
+            value="<%= listing.currency %>"
+            type="integer"
+            class="form-control"
+            name="currency"
+            aria-describedby="currencyHelp"
+          >
+            <option value="USD">USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            value="<%= listing.price %>"
+            type="integer"
+            class="form-control"
+            name="price"
+            aria-describedby="priceHelp"
+            placeholder="Enter price"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+      </form>
+    </main>
+    <% include ../static/partials/baseScripts.ejs %>
+  </body>
+</html>

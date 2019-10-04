@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <% include ../static/partials/head.ejs %>
+  </head>
+  <body>
+    <% include ../static/partials/navbar.ejs %>
+
+    <main class="container">
+        <h1>Add your offer</h1>
+        <form
+          action="/listings/create"
+          enctype="multipart/form-data"
+          method="post"
+        >
+          <div class="form-group">
+            <label for="aircraft interior">Aircraft Interior</label>
+            <input type="file" class="form-control" id="image" name="image"  />
+          </div>
+          
+            <div class="form-group">
+            <label for="aircraft exterior">Aircraft Exterior</label>
+            <input type="file" class="form-control" id="image" name="image" />
+          </div>
+                   
+          <div class="form-group">
+          <label for="title">Enter Date</label>        
+          <input type="date" id="start" name="trip-start"
+         value="date.now()"
+         min="2018-01-01" max="2021-12-31">
+              </div>
+          
+          <div class="form-group">
+            <label for="aircraft">Aircraft details</label>
+            <input
+              type="text"
+              class="form-control"
+              name="aircraft"
+              aria-describedby="aircraftHelp"
+              placeholder="Aircraft details"
+            />
+            
+            <div class="form-group">
+            <label for="Seats Number">Seats Number</label>
+            <input
+              type="integer"
+              class="form-control"
+              name="seats"
+              aria-describedby="seatsHelp"
+              placeholder="Enter number"
+            />
+          </div>
+          <div class="form-group">
+            <label for="price">Choose currency</label>
+            <select>
+              <option value="USD">USD</option>
+              <option value="EUR">EUR</option>
+              <option value="GBP">GBP</option>
+            </select>
+          </div>
+            
+            <div class="form-group">
+            <label for="currency">Price</label>
+             <input
+              type="integer"
+              class="form-control"
+              name="price"
+              aria-describedby="priceHelp"
+              placeholder="Enter price"
+            />
+          </div>
+          <input type="submit" value="Submit">
+
+      </form>
+    </main>
+  </body>
+</html>
