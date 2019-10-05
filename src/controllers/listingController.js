@@ -21,18 +21,18 @@ module.exports = {
     let newListing = {
       image1: req.files[0],
       image2: req.files[1],
-      date: req.body.date,
-      aircraft: req.body.aircraft,
-      seats: req.body.seats,
-      origin: req.body.origin,
-      destination: req.body.destination,
-      currency: req.body.currency,
-      price: req.body.price
+      date: body.date,
+      aircraft: body.aircraft,
+      seats: body.seats,
+      origin: body.origin,
+      destination: body.destination,
+      currency: body.currency,
+      price: body.price
     };
     //console.log(newListing);
     listingQueries.addListing(newListing, (err, listing) => {
-      // console.log(req.body);
-      console.log(req);
+      console.log(body);
+      //console.log(req);
       if (err) {
         //console.log(err);
         res.redirect(500, "/listings/new");
