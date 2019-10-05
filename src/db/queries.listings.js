@@ -23,6 +23,7 @@ module.exports = {
       price: newListing.price
     })
       .then(listing => {
+        console.log(newListing);
         callback(null, listing);
       })
       .catch(err => {
