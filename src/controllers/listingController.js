@@ -16,10 +16,10 @@ module.exports = {
     res.render("listings/new");
   },
   create(req, res, next) {
-    // console.log(req);
+    //console.log(req);
     let newListing = {
-      image1: req.file,
-      image2: req.file,
+      image1: req.files[0],
+      image2: req.files[1],
       date: req.body.date,
       aircraft: req.body.aircraft,
       seats: req.body.seats,
@@ -28,9 +28,9 @@ module.exports = {
       currency: req.body.currency,
       price: req.body.price
     };
-    console.log(newListing);
+    //console.log(newListing);
     listingQueries.addListing(newListing, (err, listing) => {
-      //  console.log(req.body.date);
+      console.log(req.body);
       if (err) {
         //console.log(err);
         res.redirect(500, "/listings/new");

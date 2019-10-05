@@ -49,9 +49,28 @@
               aria-describedby="seatsHelp"
               placeholder="Enter number"
             />
+            <div class="form-group">
+              <label for="Origin">Origin</label>
+              <input
+                type="string"
+                class="form-control"
+                name="origin"
+                aria-describedby="originHelp"
+                placeholder="Enter origin"
+              />
           </div>
           <div class="form-group">
-            <label for="price">Choose currency</label>
+            <label for="Destination">Destination</label>
+            <input
+              type="string"
+              class="form-control"
+              name="destination"
+              aria-describedby="destinationHelp"
+              placeholder="Enter destination"
+            />
+        </div>
+          <div class="form-group">
+            <label for="currency">Choose currency</label>
             <select>
               <option value="USD">USD</option>
               <option value="EUR">EUR</option>
@@ -60,7 +79,7 @@
           </div>
             
             <div class="form-group">
-            <label for="currency">Price</label>
+            <label for="price">Price</label>
              <input
               type="integer"
               class="form-control"
