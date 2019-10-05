@@ -17,6 +17,7 @@ module.exports = {
   },
   create(req, res, next) {
     //console.log(req);
+    let body = JSON.parse(JSON.stringify(req.body));
     let newListing = {
       image1: req.files[0],
       image2: req.files[1],
@@ -30,7 +31,8 @@ module.exports = {
     };
     //console.log(newListing);
     listingQueries.addListing(newListing, (err, listing) => {
-      console.log(req.body);
+      // console.log(req.body);
+      console.log(req);
       if (err) {
         //console.log(err);
         res.redirect(500, "/listings/new");
