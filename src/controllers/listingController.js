@@ -28,6 +28,7 @@ module.exports = {
       currency: req.body.currency,
       price: req.body.price
     };
+    console.log(newListing);
     listingQueries.addListing(newListing, (err, listing) => {
       //  console.log(req.body.date);
       if (err) {
