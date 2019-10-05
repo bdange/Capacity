@@ -31,10 +31,10 @@ module.exports = {
     };
     //console.log(newListing);
     listingQueries.addListing(newListing, (err, listing) => {
-      console.log(body);
+      //console.log(body);
       //console.log(req);
       if (err) {
-        //console.log(err);
+        console.log(err);
         res.redirect(500, "/listings/new");
       } else {
         res.redirect(300, `/listings/${listing.id}`);
