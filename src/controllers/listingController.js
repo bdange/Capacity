@@ -37,7 +37,7 @@ module.exports = {
         console.log(err);
         res.redirect(500, "/listings/new");
       } else {
-        res.redirect(300, `/listings/${listing.id}`);
+        res.redirect(302, `/listings/${listing.id}`);
       }
     });
   },
