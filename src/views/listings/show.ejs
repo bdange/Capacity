@@ -7,15 +7,63 @@
     <% include ../static/partials/navbar.ejs %>
 
     <main class="container">
-      <img src="<%= listing.image1 %>" />
-      <img src="<%= listing.image2 %>" />
-      <p><%= listing.date %></p>
-      <p><%= listing.aircraft %></p>
-      <p><%= listing.seats %></p>
-      <p><%= listing.origin %></p>
-      <p><%= listing.destination %></p>
-      <p><%= listing.currency %></p>
-      <p><%= listing.price %></p>
+      <div class="row">
+        <div class="col-pic">
+          <img class="col-pic" src="/images/<%= listing.image1 %>" />
+        </div>
+        <div class="col-pic">
+          <img class="col-pic" src="/images/<%= listing.image2 %>" />
+        </div>
+      </div>
+      <br />
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Departure date:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.date %></p>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Aircraft type:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.aircraft %></p>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Seats number:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.seats %></p>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Origin:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.origin %></p>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Destination:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.destination %></p>
+        </div>
+      </div>
+      <div class="row justify-content-start">
+        <div class="col-2">
+          <p>Starting price:</p>
+        </div>
+        <div class="col-2">
+          <p><%= listing.currency %><%= listing.price %></p>
+        </div>
+      </div>
 
       <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning"
         >Edit</a
@@ -28,6 +76,69 @@
       >
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
+      <div class="inquiry">
+        <p>
+          If you are interested in that offer, please fill the form below. We'll
+          verify that this offer is still available and we will come back to you
+          as soon as possible.
+        </p>
+        <form
+          class="inquiry"
+          action="/listings/<%= listing.id %>"
+          id="contact-form"
+          method="post"
+          role="form"
+        >
+          <fieldset>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                placeholder="Your name"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input
+                id="email"
+                name="email"
+                type="text"
+                placeholder="Your email"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="phone">Phone Number</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="Your phone number"
+                required
+              />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea
+                id="message"
+                name="message"
+                rows="8"
+                cols="30"
+                value="Enter your message here"
+                required
+              >
+Should you want to inquire for the flight from <%= listing.origin %> to <%= listing.destination %> on <%= listing.date %> abord a <%= listing.aircraft %> for <%= listing.currency %><%= listing.price %>, please submit the form below.
+You can complete your message here: </textarea
+              >
+            </div>
+
+            <button type="submit">Submit</button>
+          </fieldset>
+        </form>
+      </div>
     </main>
     <% include ../static/partials/baseScripts.ejs %>
   </body>

@@ -9,10 +9,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       image1: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
       },
       image2: {
-        type: Sequelize.BLOB
+        type: Sequelize.STRING
       },
       date: {
         type: Sequelize.DATEONLY

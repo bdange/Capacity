@@ -11,10 +11,10 @@ const multer = require("multer");
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, "src/assets/images");
+    callback(null, "images");
   },
   filename: (req, file, callback) => {
-    callback(null, new Date().toISOString() + "-" + file.originalname);
+    callback(null, new Date().getTime() + "-" + file.originalname);
   }
 });
 
@@ -35,9 +35,17 @@ module.exports = {
     app.set("views", viewsFolder);
     app.set("view engine", "ejs");
     app.use(express.static(path.join(__dirname, "..", "assets")));
+    app.use(
+      "/images",
+      express.static(path.join(__dirname, "..", "..", "images"))
+    );
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(
-      multer({ storage: fileStorage, fileFilter: fileFilter }).array("image", 2)
+      multer({
+        storage: fileStorage,
+        limits: { fieldSize: 1024 * 1024 * 1 },
+        fileFilter: fileFilter
+      }).array("image", 2)
     );
     app.use(expressValidator());
     app.use(

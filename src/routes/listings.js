@@ -3,7 +3,8 @@ const router = express.Router();
 
 const listingController = require("../controllers/listingController");
 
-router.get("/listings", listingController.index);
+router.get("/listings/index", listingController.index);
+router.post("/listings/:id", listingController.sendForm);
 
 router.get("/listings/new", listingController.new);
 

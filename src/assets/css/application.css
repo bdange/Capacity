@@ -42,3 +42,35 @@ h6.center-text {
   margin-bottom: 10px;
   font-weight: bold;
 }
+
+.container img {
+  max-width: 300px;
+  max-height: 150px;
+  margin-top: 20px;
+  padding: 0;
+}
+
+.container .col-1 {
+  padding: 0;
+  margin: 0;
+}
+
+.split-left {
+  width: 80%;
+  float: left;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.split-right {
+  width: 20%;
+  float: left;
+  height: 100%;
+  margin-top: 50px;
+}
+
+.inquiry {
+  margin-top: 30px;
+  margin-bottom: 50px;
+}

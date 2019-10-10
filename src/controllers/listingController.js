@@ -1,6 +1,12 @@
+const dotenv = require("dotenv").config();
+
 const listingQueries = require("../db/queries.listings.js");
 const multer = require("multer");
 const upload = multer({ dest: "../assets/uploads/" });
+
+const nodemailer = require("nodemailer");
+const GMAIL_USER = process.env.GMAIL_USER;
+const GMAIL_PASS = process.env.GMAIL_PASS;
 
 module.exports = {
   index(req, res, next) {
@@ -8,7 +14,7 @@ module.exports = {
       if (err) {
         res.redirect(500, "static/index");
       } else {
-        res.render("listings/new", { listings });
+        res.render("listings/index", { listings });
       }
     });
   },
@@ -18,9 +24,12 @@ module.exports = {
   create(req, res, next) {
     //console.log(req);
     let body = JSON.parse(JSON.stringify(req.body));
+    /*console.log(req.files);
+    res.json(req.files);
+    return; */
     let newListing = {
-      image1: req.files[0],
-      image2: req.files[1],
+      image1: req.files[0].filename,
+      image2: req.files[1].filename,
       date: body.date,
       aircraft: body.aircraft,
       seats: body.seats,
@@ -37,7 +46,7 @@ module.exports = {
         console.log(err);
         res.redirect(500, "/listings/new");
       } else {
-        res.redirect(302, `/listings/${listing.id}`);
+        res.redirect(300, `/listings/${listing.id}`);
       }
     });
   },
@@ -55,7 +64,7 @@ module.exports = {
       if (err) {
         res.redirect(500, `/listings/${listing.id}`);
       } else {
-        res.redirect(300, "/listings");
+        res.redirect(302, "/listings/index");
       }
     });
   },
@@ -76,5 +85,37 @@ module.exports = {
         res.redirect(`/listings/${listing.id}`);
       }
     });
+  },
+  sendForm(req, res, next) {
+    const smtpTrans = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: GMAIL_USER,
+        pass: GMAIL_PASS
+      }
+    });
+
+    const mailOpts = {
+      from: "admin@flycapacity.com",
+      to: GMAIL_USER,
+      subject: "New request from contact form at flycapacity.com",
+      text: `${req.body.name} ${req.body.email} ${req.body.phone} says: ${req.body.message}`
+    };
+
+    try {
+      smtpTrans.sendMail(mailOpts, (err, res) => {
+        if (err) {
+          throw err;
+        }
+      });
+      req.flash("notice", "Your message has been sent!");
+      res.redirect(`/listings/${listing.id}`);
+    } catch (err) {
+      console.log(err);
+      req.flash("error", err);
+      res.redirect(`/listings/${listing.id}`);
+    }
   }
 };

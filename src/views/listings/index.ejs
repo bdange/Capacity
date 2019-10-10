@@ -8,14 +8,48 @@
       <% include ../static/partials/navbar.ejs %>
 
       <h1>Listings</h1>
-
+      <a href="/listings/new" class="btn btn-success">New Listing</a>
       <ul class="list-group">
+         
         <% listings.forEach((listing) => { %>
 
-        <li class="list-group-item">
-          <a href="/listings/<%= listing.id %>"> <%= listing.title %></a>
+        <li class="list-item">
+            
+         
+            <div class="row">
+            <div class="col-pic">
+                <img class="col-pic" src="/images/<%= listing.image1 %>" />
+              </div>
+              <div class="col-pic">
+                <img class="col-pic" src="/images/<%= listing.image2 %>" />
+              </div>
+              <div class="col my-auto">
+                  <%= listing.date %>
+              </div>
+              <div class="col my-auto">
+                  <%= listing.aircraft %>
+              </div>
+              <div class="col my-auto">
+                  <%= listing.seats %> seats
+              </div>
+              
+              <div class="col my-auto">
+                  <%= listing.origin %>
+              </div>
+              <div class="col my-auto">
+                  <%= listing.destination %>
+              </div>
+              <div class="col my-auto">
+                  <%= listing.currency %> <%= listing.price %>
+              </div>
+             
+              <div class="col my-auto"> <a href="/listings/<%= listing.id %>">
+                  <button>inquire</button>
+                </div></div>
+            </a
+          > 
         </li>
-
+      </div>
         <% }) %>
       </ul>
     </main>

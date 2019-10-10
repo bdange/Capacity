@@ -4,11 +4,11 @@ module.exports = (sequelize, DataTypes) => {
     "Listings",
     {
       image1: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING,
         allowNull: false
       },
       image2: {
-        type: DataTypes.BLOB,
+        type: DataTypes.STRING,
         allowNull: false
       },
       date: {
