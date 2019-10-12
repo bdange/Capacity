@@ -23,10 +23,6 @@ module.exports = (sequelize, DataTypes) => {
     {}
   );
   User.associate = function(models) {
-    User.hasMany(models.Listings, {
-      foreignKey: "userId",
-      as: "listings"
-    });
     User.prototype.isStandard = function() {
       return this.role === "standard";
     };
