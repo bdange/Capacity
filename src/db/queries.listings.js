@@ -1,4 +1,5 @@
 const Listing = require("./models").Listings;
+const Authorizer = require("../policies/listings");
 
 module.exports = {
   getAllListings(callback) {
@@ -39,31 +40,43 @@ module.exports = {
       });
   },
   deleteListing(id, callback) {
-    return Listing.destroy({
-      where: { id }
-    })
+    return Listing.findByPk(req.params.id)
       .then(listing => {
-        callback(null, listing);
+        const authorized = new Authorizer(req.user, listing).destroy();
+        if (authorized) {
+          listing.destroy().then(res => {
+            callback(null, listing);
+          });
+        } else {
+          req.flash("notice", "You are not authorized to do that.");
+          callback(401);
+        }
       })
       .catch(err => {
         callback(err);
       });
   },
   updateListing(id, updatedListing, callback) {
-    return Listing.findByPk(id).then(listing => {
+    return Listing.findByPk(req.params.id).then(listing => {
       if (!listing) {
         return callback("Listing not found");
       }
-      listing
-        .update(updatedListing, {
-          fields: Object.keys(updatedListing)
-        })
-        .then(() => {
-          callback(null, listing);
-        })
-        .catch(err => {
-          callback(err);
-        });
+      const authorized = new Authorizer(req.user, listing).update();
+      if (authorized) {
+        listing
+          .update(updatedListing, {
+            fields: Object.keys(updatedListing)
+          })
+          .then(() => {
+            callback(null, listing);
+          })
+          .catch(err => {
+            callback(err);
+          });
+      } else {
+        req.flash("notice", "You are not authorized to do that.");
+        callback("Forbidden");
+      }
     });
   }
 };

@@ -3,7 +3,7 @@ const dotenv = require("dotenv").config();
 const listingQueries = require("../db/queries.listings.js");
 const multer = require("multer");
 const upload = multer({ dest: "../assets/uploads/" });
-
+const Authorizer = require("../policies/listings");
 const nodemailer = require("nodemailer");
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
@@ -19,7 +19,14 @@ module.exports = {
     });
   },
   new(req, res, next) {
-    res.render("listings/new");
+    const authorized = new Authorizer(req.user).new();
+    if (authorized) {
+      console.log("unauthorized");
+      res.render("listings/new");
+    } else {
+      req.flash("notice", "You are not authorized to do that.");
+      res.redirect("/listings/index");
+    }
   },
   create(req, res, next) {
     //console.log(req);
@@ -27,28 +34,34 @@ module.exports = {
     /*console.log(req.files);
     res.json(req.files);
     return; */
-    let newListing = {
-      image1: req.files[0].filename,
-      image2: req.files[1].filename,
-      date: body.date,
-      aircraft: body.aircraft,
-      seats: body.seats,
-      origin: body.origin,
-      destination: body.destination,
-      currency: body.currency,
-      price: body.price
-    };
-    //console.log(newListing);
-    listingQueries.addListing(newListing, (err, listing) => {
-      //console.log(body);
-      //console.log(req);
-      if (err) {
-        console.log(err);
-        res.redirect(500, "/listings/new");
-      } else {
-        res.redirect(300, `/listings/${listing.id}`);
-      }
-    });
+    const authorized = new Authorizer(req.user).create();
+    if (authorized) {
+      let newListing = {
+        image1: req.files[0].filename,
+        image2: req.files[1].filename,
+        date: body.date,
+        aircraft: body.aircraft,
+        seats: body.seats,
+        origin: body.origin,
+        destination: body.destination,
+        currency: body.currency,
+        price: body.price
+      };
+      //console.log(newListing);
+      listingQueries.addListing(newListing, (err, listing) => {
+        //console.log(body);
+        //console.log(req);
+        if (err) {
+          console.log(err);
+          res.redirect(500, "/listings/new");
+        } else {
+          res.redirect(300, `/listings/${listing.id}`);
+        }
+      });
+    } else {
+      req.flash("notice", "You are not authorized to do that.");
+      res.redirect("/listings/index");
+    }
   },
   show(req, res, next) {
     listingQueries.getListing(req.params.id, (err, listing) => {
@@ -73,7 +86,13 @@ module.exports = {
       if (err || listing == null) {
         res.redirect(404, "/");
       } else {
-        res.render("listings/edit", { listing });
+        const authorized = new Authorizer(req.user, listings).edit();
+        if (authorized) {
+          res.render("listings/edit", { listing });
+        } else {
+          req.flash("You are not authorized to do that.");
+          res.redirect(`/listings/${req.params.id}`);
+        }
       }
     });
   },

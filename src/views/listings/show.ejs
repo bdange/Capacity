@@ -64,7 +64,7 @@
           <p><%= listing.currency %><%= listing.price %></p>
         </div>
       </div>
-
+      <% if(currentUser || currentUser.isAdmin()) { %>
       <a href="/listings/<%= listing.id %>/edit" class="btn btn-warning"
         >Edit</a
       >
@@ -76,6 +76,7 @@
       >
         <button type="submit" class="btn btn-danger">Delete</button>
       </form>
+      <% } %>
       <div class="inquiry">
         <p>
           If you are interested in that offer, please fill the form below. We'll

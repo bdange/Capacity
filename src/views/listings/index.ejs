@@ -8,7 +8,9 @@
       <% include ../static/partials/navbar.ejs %>
 
       <h1>Listings</h1>
+      <% if(currentUser) { %>
       <a href="/listings/new" class="btn btn-success">New Listing</a>
+      <% } %>
       <ul class="list-group">
          
         <% listings.forEach((listing) => { %>

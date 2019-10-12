@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const helper = require("../auth/helpers");
 
 const listingController = require("../controllers/listingController");
 
@@ -8,7 +9,11 @@ router.post("/listings/:id", listingController.sendForm);
 
 router.get("/listings/new", listingController.new);
 
-router.post("/listings/create", listingController.create);
+router.post(
+  "/listings/create",
+  helper.ensureAuthenticated,
+  listingController.create
+);
 
 router.get("/listings/:id", listingController.show);
 

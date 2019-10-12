@@ -13,12 +13,26 @@ module.exports = (sequelize, DataTypes) => {
       password: {
         type: DataTypes.STRING,
         allowNull: false
+      },
+      role: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        defaultValue: "standard"
       }
     },
     {}
   );
   User.associate = function(models) {
-    // associations can be defined here
+    User.hasMany(models.Listings, {
+      foreignKey: "userId",
+      as: "listings"
+    });
+    User.prototype.isStandard = function() {
+      return this.role === "standard";
+    };
+    User.prototype.isAdmin = function() {
+      return this.role === "admin";
+    };
   };
   return User;
 };
