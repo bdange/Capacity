@@ -21,7 +21,6 @@ module.exports = {
   new(req, res, next) {
     const authorized = new Authorizer(req.user).new();
     if (authorized) {
-      console.log("unauthorized");
       res.render("listings/new");
     } else {
       req.flash("notice", "You are not authorized to do that.");
@@ -29,7 +28,7 @@ module.exports = {
     }
   },
   create(req, res, next) {
-    //console.log(req);
+    console.log(req);
     let body = JSON.parse(JSON.stringify(req.body));
     /*console.log(req.files);
     res.json(req.files);
@@ -49,13 +48,13 @@ module.exports = {
       };
       //console.log(newListing);
       listingQueries.addListing(newListing, (err, listing) => {
-        //console.log(body);
-        //console.log(req);
+        console.log(body);
+        console.log(req);
         if (err) {
           console.log(err);
           res.redirect(500, "/listings/new");
         } else {
-          res.redirect(300, `/listings/${listing.id}`);
+          res.redirect(302, `/listings/${listing.id}`);
         }
       });
     } else {

@@ -1,11 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const helper = require("../auth/helpers");
+const helper = require("../auth/helpers.js");
 
 const listingController = require("../controllers/listingController");
 
 router.get("/listings/index", listingController.index);
-router.post("/listings/:id", listingController.sendForm);
 
 router.get("/listings/new", listingController.new);
 
@@ -16,6 +15,8 @@ router.post(
 );
 
 router.get("/listings/:id", listingController.show);
+
+router.post("/listings/:id", listingController.sendForm);
 
 router.post("/listings/:id/destroy", listingController.destroy);
 
