@@ -1,5 +1,8 @@
 {
   "name": "capacity",
+  "engines": {
+    "node": "10.x"
+  },
   "version": "1.0.0",
   "description": "An empty-leg reservation platform",
   "main": "index.js",
