@@ -10,6 +10,7 @@ const nodemailer = require("nodemailer");
 const multer = require("multer");
 const aws = require("aws-sdk");
 const multers3 = require("multer-s3");
+const s3 = new aws.s3({});
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, callback) => {
