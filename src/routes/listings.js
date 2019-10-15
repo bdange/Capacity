@@ -16,12 +16,12 @@ router.get("/listings/new", listingController.new);
 
 router.get("/listings/:id", listingController.show);
 
-router.post("/listings/:id", listingController.sendForm);
+//router.post("/listings/:id", listingController.sendForm);
 
-router.post("/listings/:id/destroy", listingController.destroy);
+//router.post("/listings/:id/destroy", listingController.destroy);
 
-router.get("/listings/:id/edit", listingController.edit);
+//router.get("/listings/:id/edit", listingController.edit);
 
-router.post("/listings/:id/update", listingController.update);
+//router.post("/listings/:id/update", listingController.update);
 
 module.exports = router;
