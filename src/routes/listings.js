@@ -8,11 +8,11 @@ router.get("/listings/index", listingController.index);
 
 router.get("/listings/new", listingController.new);
 
-router.post(
-  "/listings/create",
-  helper.ensureAuthenticated,
-  listingController.create
-);
+// router.post(
+//   "/listings/create",
+//   helper.ensureAuthenticated,
+//   listingController.create
+// );
 
 router.get("/listings/:id", listingController.show);
 
@@ -25,4 +25,3 @@ router.get("/listings/:id/edit", listingController.edit);
 router.post("/listings/:id/update", listingController.update);
 
 module.exports = router;
-////
