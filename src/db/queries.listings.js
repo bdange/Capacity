@@ -31,8 +31,10 @@ module.exports = {
       });
   },
   getListing(id, callback) {
+    console.log("XX id", id);
     return Listing.findByPk(id)
       .then(listing => {
+        console.log("Listing found", listing);
         callback(null, listing);
       })
       .catch(err => {

@@ -8,6 +8,7 @@ const session = require("express-session");
 const flash = require("express-flash");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, callback) => {
@@ -47,6 +48,13 @@ module.exports = {
         fileFilter: fileFilter
       }).array("image", 2)
     );
+    // app.use(
+    //   cloudinary.config({
+    //     cloud_name: "capacity",
+    //     api_key: process.env.CLOUDINARY_API_KEY,
+    //     api_secret: process.env.CLOUDINARY_API_SECRET
+    //   })
+    // );
     app.use(expressValidator());
     app.use(
       session({

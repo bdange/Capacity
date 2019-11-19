@@ -7,6 +7,13 @@ const Authorizer = require("../policies/listings");
 const nodemailer = require("nodemailer");
 const GMAIL_USER = process.env.GMAIL_USER;
 const GMAIL_PASS = process.env.GMAIL_PASS;
+const cloudinary = require("cloudinary").v2;
+
+cloudinary.config({
+  cloud_name: "capacity",
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
 
 module.exports = {
   index(req, res, next) {
@@ -28,11 +35,7 @@ module.exports = {
     }
   },
   create(req, res, next) {
-    console.log(req);
     let body = JSON.parse(JSON.stringify(req.body));
-    /*console.log(req.files);
-    res.json(req.files);
-    return; */
     const authorized = new Authorizer(req.user).create();
     if (authorized) {
       let newListing = {
@@ -46,14 +49,18 @@ module.exports = {
         currency: body.currency,
         price: body.price
       };
-      //console.log(newListing);
+
       listingQueries.addListing(newListing, (err, listing) => {
-        //console.log(body);
-        //console.log(req);
         if (err) {
-          //console.log(err);
           res.redirect(500, "/listings/new");
         } else {
+          // File upload to Cloudinary
+          req.files.forEach(element => {
+            cloudinary.uploader.upload(element.path, function(error, result) {
+              console.log(result, error);
+            });
+          });
+
           res.redirect(302, `/listings/${listing.id}`);
         }
       });
@@ -81,7 +88,9 @@ module.exports = {
     });
   },
   edit(req, res, next) {
+    //console.log("Request params XXXXX", req.params);
     listingQueries.getListing(req.params.id, (err, listing) => {
+      console.log("YYYY", listing);
       if (err || listing == null) {
         res.redirect(404, "/");
       } else {
